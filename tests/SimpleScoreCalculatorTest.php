@@ -2,6 +2,8 @@
 
 namespace tests\Kata\ScoreCalculator;
 
+use Kata\ScoreCalculator\Combination\DuplicateCombination;
+use Kata\ScoreCalculator\Combination\NoCombination;
 use Kata\ScoreCalculator\SimpleScoreCalculator;
 
 class SimpleScoreCalculatorTest extends \PHPUnit_Framework_TestCase
@@ -13,7 +15,12 @@ class SimpleScoreCalculatorTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->SUT = new SimpleScoreCalculator();
+        $this->SUT = new SimpleScoreCalculator(
+            [
+                new NoCombination(),
+                new DuplicateCombination(),
+            ]
+        );
     }
 
     /**

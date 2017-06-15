@@ -7,50 +7,53 @@ use Kata\ScoreCalculator\Combination\Combination;
 
 class SimpleScoreCalculator implements ScoreCalculator
 {
+    /**
+     * @var array
+     */
+    private $possibleCombinations;
+
+    public function __construct(array $possibleCombinations)
+    {
+        $this->possibleCombinations = $possibleCombinations;
+    }
+
     public function calculateScore(string $rawDicesResult): int
     {
-        $dicesResult = explode(';', $rawDicesResult);
+        $rollOfDices = new RollOfDices($rawDicesResult);
 
-        $facesCount = $this->getFacesCount($dicesResult);
-        $duplicates = $this->getDuplicateFaces($facesCount);
+        $matchingCombinations = $this->getMatchingCombinations($rollOfDices);
+        $scores = $this->getCombinationScores($rollOfDices, $matchingCombinations);
 
-        return $this->getMaxDuplicateScore($duplicates);
+        return max($scores);
     }
 
     /**
-     * @param $dicesResult
+     * @param $rollOfDices
      * @return array
      */
-    private function getFacesCount(array $dicesResult): array
+    private function getMatchingCombinations($rollOfDices): array
     {
-        return array_count_values($dicesResult);
-    }
-
-    /**
-     * @param $facesCount
-     * @return array
-     */
-    private function getDuplicateFaces($facesCount): array
-    {
-        $duplicates = array_filter(
-            $facesCount,
-            function ($count) {
-                return $count > 1;
+        return array_filter(
+            $this->possibleCombinations,
+            function (Combination $combination) use ($rollOfDices) {
+                return $combination->match($rollOfDices);
             }
         );
-        return $duplicates;
     }
 
     /**
-     * @param array $duplicates
-     * @return int
+     * @param $rollOfDices
+     * @param $matchingCombinations
+     * @return array
      */
-    private function getMaxDuplicateScore($duplicates): int
+    private function getCombinationScores($rollOfDices, $matchingCombinations): array
     {
-        $result = array_map(function($diceCount, $diceValue){
-            return $diceCount * $diceValue;
-        }, $duplicates, array_keys($duplicates));
-        return count($result) ? max($result) : 0;
+        return array_map(
+            function (Combination $combination) use ($rollOfDices) {
+                return $combination->getScore($rollOfDices);
+            },
+            $matchingCombinations
+        );
     }
 
 }
