@@ -17,6 +17,9 @@ class ScoreCalculator
      */
     public function calculateScore($score = null)
     {
-        return 0;
+        $score = null === $score ? [] : explode(';', $score);
+        return array_reduce($score, function ($carry, $score) {
+            return $carry = $carry + $score;
+        }, 0);
     }
 }

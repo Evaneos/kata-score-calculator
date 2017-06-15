@@ -26,4 +26,12 @@ class Test extends TestCase
     {
         $this->assertSame(0, $this->SUT->calculateScore());
     }
+
+    /**
+     * @test
+     */
+    public function it_should_add_the_values_of_dices_separated_by_semicolons()
+    {
+        $this->assertEquals(21, $this->SUT->calculateScore('1;2;3;4;5;6'));
+    }
 }
