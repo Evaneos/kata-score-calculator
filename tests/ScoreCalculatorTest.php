@@ -14,6 +14,26 @@ class ScoreCalculatorTest extends \PHPUnit_Framework_TestCase
     {
         $calculator = new ScoreCalculator();
 
-        $this->assertEquals( 0, $calculator->calculate(null));
+        $this->assertEquals( 0, $calculator->calculate(''));
+    }
+
+    /**
+     * @test
+     * @expectedException \Exception
+     */
+    public function should_receive_good_format() {
+        $calculator = new ScoreCalculator();
+
+        $calculator->calculate('1;2;3;4;5;;;');
+    }
+
+    /**
+     * @test
+     */
+    public function a_suite_should_be_addition()
+    {
+        $calculator = new ScoreCalculator();
+
+        $this->assertEquals( 3, $calculator->calculate('3;3;3'));
     }
 }
