@@ -52,4 +52,12 @@ class Test extends TestCase
     {
         $this->assertSame(6, $this->SUT->calculateScore('1;2;3;4;3'));
     }
+
+    /**
+     * @test
+     */
+    public function it_should_return_the_highest_sum_of_duplicates()
+    {
+        $this->assertSame(8, $this->SUT->calculateScore('1;4;3;3;4'));
+    }
 }

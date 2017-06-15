@@ -26,25 +26,12 @@ class ScoreCalculator
         Assertion::count($scores, self::NUMBER_OF_DICES, 'Bad number of dices');
 
         $duplicates = array_count_values($scores);
-        if (count($duplicates) === self::NUMBER_OF_DICES) {
-            return 0;
-        }
 
-        $filteredDuplicates = array_filter(
-            $duplicates,
-            function($occurences) {
-                return $occurences > 1;
+        return max(array_map(function ($value) use ($duplicates) {
+            if ($duplicates[$value] === 1) {
+                return 0;
             }
-        );
-
-        return array_reduce(
-            array_keys($filteredDuplicates),
-            function($higherValue, $value) use ($filteredDuplicates) {
-                $currentScore = $value * $filteredDuplicates[$value];
-
-                return $currentScore;
-            },
-            0
-        );
+            return $duplicates[$value] * $value;
+        }, array_keys($duplicates)));
     }
 }
