@@ -21,17 +21,27 @@ class Test extends TestCase
 
     /**
      * @test
+     * @expectedException \InvalidArgumentException
      */
-    public function it_should_return_default_score_when_given_empty_score()
+    public function it_should_not_have_more_than_a_fixed_number_of_dice()
     {
-        $this->assertSame(0, $this->SUT->calculateScore());
+        $this->SUT->calculateScore('1;2;3;4;5;6');
+    }
+
+    /**
+     * @test
+     * @expectedException \InvalidArgumentException
+     */
+    public function it_should_not_have_less_than_a_fixed_number_of_dice()
+    {
+        $this->SUT->calculateScore('1;2;3;4');
     }
 
     /**
      * @test
      */
-    public function it_should_add_the_values_of_dices_separated_by_semicolons()
+    public function it_should_return_zero_if_all_dice_values_are_different()
     {
-        $this->assertEquals(21, $this->SUT->calculateScore('1;2;3;4;5;6'));
+        $this->assertSame(0, $this->SUT->calculateScore('1;2;3;4;5'));
     }
 }

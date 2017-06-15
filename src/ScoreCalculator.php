@@ -9,17 +9,25 @@
 namespace Kata\ScoreCalculator;
 
 
+use Assert\Assertion;
+
 class ScoreCalculator
 {
+    const NUMBER_OF_DICES = 5;
+
     /**
      * @param string $score
      * @return int
      */
-    public function calculateScore($score = null)
+    public function calculateScore($score)
     {
-        $score = null === $score ? [] : explode(';', $score);
-        return array_reduce($score, function ($carry, $score) {
-            return $carry = $carry + $score;
-        }, 0);
+        $scores = null === $score ? [] : explode(';', $score);
+
+        Assertion::count($scores, self::NUMBER_OF_DICES, 'Bad number of dices');
+
+        $duplicates = array_count_values($scores);
+        if (count($duplicates) === self::NUMBER_OF_DICES) {
+            return 0;
+        }
     }
 }
