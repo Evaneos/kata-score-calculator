@@ -1,0 +1,22 @@
+{
+    "name": "evaneos/kata-score-calculator",
+    "type": "",
+    "require": {
+        "phpunit/phpunit": "^5.7",
+        "symfony/var-dumper": "^3.3"
+    },
+    "authors": [
+        {
+            "name": "Mathieu Thomas",
+            "email": "mathieu.thomas@evaneos.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Calculator\\": [
+                "src",
+                "tests"
+            ]
+        }
+    }
+}
