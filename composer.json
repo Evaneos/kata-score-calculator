@@ -7,8 +7,8 @@
     },
     "autoload": {
         "psr-4": {
-            "Kata\\": "src/",
-            "tests\\Kata\\": "tests/"
+            "Kata\\ScoreCalculator\\": "src/",
+            "tests\\Kata\\ScoreCalculator\\": "tests/"
         }
     }
 }
