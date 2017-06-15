@@ -10,19 +10,40 @@ class DuplicateCombination implements Combination
     public static function match(RollOfDices $rollOfDices): bool
     {
         return max(
-                array_count_values(
-                    array_map(
-                        function (DiceFace $face) {
-                            return $face->getValue();
-                        },
-                        $rollOfDices->getDicesFace()
-                    )
-                )
+                array_count_values($rollOfDices->getRawDiceValues())
             ) > 1;
     }
 
     public static function getScore(RollOfDices $rollOfDices): int
     {
+        return DuplicateCombination::getMaxDuplicateScore(
+            DuplicateCombination::getMultiples($rollOfDices->getRawDiceValues())
+        );
+    }
+
+    /**
+     * @param array $values
+     * @return array
+     */
+    private static function getMultiples(array $values)
+    {
+        return array_filter(
+            array_count_values($values),
+            function ($count) { return $count > 1; }
+        );
+    }
+
+    /**
+     * @param array $values
+     * @return int
+     */
+    private static function getMaxDuplicateScore(array $values): int
+    {
+        $result = array_map(function($count, $value){
+            return $count * $value;
+        }, $values, array_keys($values));
+
+        return count($result) ? max($result) : 0;
     }
 
 }

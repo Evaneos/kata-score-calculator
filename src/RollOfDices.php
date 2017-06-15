@@ -24,10 +24,24 @@ class RollOfDices
     }
 
     /**
-     * @return array
+     * @return DiceFace[]
      */
     public function getDicesFace(): array
     {
         return $this->dicesFace;
     }
+
+    /**
+     * @return array
+     */
+    public function getRawDiceValues(): array
+    {
+        return array_map(
+            function (DiceFace $face) {
+                return $face->getValue();
+            },
+            $this->getDicesFace()
+        );
+    }
+
 }
