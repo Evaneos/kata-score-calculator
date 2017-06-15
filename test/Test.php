@@ -40,9 +40,9 @@ class Test extends TestCase
     /**
      * @test
      */
-    public function it_should_return_zero_if_all_dice_values_are_different()
+    public function it_should_return_zero_if_all_dice_values_are_different_but_not_consecutive()
     {
-        $this->assertSame(0, $this->SUT->calculateScore('1;2;3;4;5'));
+        $this->assertSame(0, $this->SUT->calculateScore('1;2;3;4;6'));
     }
 
     /**
@@ -68,5 +68,13 @@ class Test extends TestCase
     public function it_should_not_accept_invalide_6_faces_dice_methods()
     {
         $this->SUT->calculateScore('0;12;-3;5;7');
+    }
+
+    /**
+     * @test
+     */
+    public function it_should_calculate_score_for_a_small_straight()
+    {
+        $this->assertSame(20, $this->SUT->calculateScore('3;4;1;2;5'));
     }
 }

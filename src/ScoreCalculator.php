@@ -8,18 +8,18 @@
 
 namespace Kata\ScoreCalculator;
 
-
 use Assert\Assertion;
 
 class ScoreCalculator
 {
     const NUMBER_OF_DICES = 5;
+    const SMALL_STRAIGHT_SCORE = 20;
 
     /**
      * @param string $score
      * @return int
      */
-    public function calculateScore($score)
+    public function calculateScore(string $score)
     {
         $scores = array_map(function ($value) {
             return DiceValue::fromValue($value);
@@ -27,9 +27,11 @@ class ScoreCalculator
 
         Assertion::count($scores, self::NUMBER_OF_DICES, 'Bad number of dices');
 
-        $duplicates = array_count_values(array_map(function (DiceValue $value) {
-            return $value->getValue();
-        }, $scores));
+        if ($this->isSmallStraight($scores)) {
+            return self::SMALL_STRAIGHT_SCORE;
+        }
+
+        $duplicates = array_count_values(self::getSortedValuesAsInts($scores));
 
         return max($this->calculateScoresByValues($duplicates));
     }
@@ -38,7 +40,7 @@ class ScoreCalculator
      * @param $duplicates
      * @return array
      */
-    private function calculateScoresByValues($duplicates)
+    private function calculateScoresByValues(array $duplicates)
     {
         return array_map(function ($value) use ($duplicates) {
             if ($duplicates[$value] === 1) {
@@ -46,5 +48,29 @@ class ScoreCalculator
             }
             return $duplicates[$value] * $value;
         }, array_keys($duplicates));
+    }
+
+    /**
+     * @param DiceValue[] $scores
+     * @return bool
+     */
+    private function isSmallStraight(array $scores)
+    {
+        return self::getSortedValuesAsInts($scores) === [1, 2, 3, 4, 5];
+    }
+
+    /**
+     * @param DiceValue[] $scores
+     * @return array
+     */
+    private static function getSortedValuesAsInts(array $scores): array
+    {
+        $intValues = array_map(function (DiceValue $value) {
+            return $value->getValue();
+        }, $scores);
+
+        sort($intValues);
+
+        return $intValues;
     }
 }
