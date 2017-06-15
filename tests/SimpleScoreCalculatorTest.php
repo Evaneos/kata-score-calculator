@@ -61,7 +61,7 @@ class SimpleScoreCalculatorTest extends \PHPUnit_Framework_TestCase
         return [
             ['1;1;1;6;6', 12],
             ['6;6;1;1;1', 12],
-            ['1;1;1;2;6', 12],
+            ['1;1;1;2;6', 3],
         ];
     }
 }

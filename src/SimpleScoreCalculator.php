@@ -2,6 +2,7 @@
 
 namespace Kata\ScoreCalculator;
 
+
 class SimpleScoreCalculator implements ScoreCalculator
 {
     public function calculateScore(string $rawDicesResult): int
@@ -25,10 +26,12 @@ class SimpleScoreCalculator implements ScoreCalculator
             }
         );
 
-        if (count($duplicates)) {
-            return array_keys($duplicates)[0] * reset($duplicates);
+        $result = [0];
+        foreach ($duplicates as $diceValue => $diceCount) {
+            $result[] = $diceValue * $diceCount;
         }
-        return 0;
+
+        return max($result);
     }
 
 }
