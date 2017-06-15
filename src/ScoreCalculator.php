@@ -7,7 +7,7 @@ namespace Kata;
  *
  * @package Kata\ScoreCalculator
  **/
-interface StringToIntInterface
+interface ScoreCalculator
 {
 
     /**
@@ -15,5 +15,5 @@ interface StringToIntInterface
      *
      * @return int
      */
-    public function cast(string $value):int;
+    public function score(string $value):int;
 }

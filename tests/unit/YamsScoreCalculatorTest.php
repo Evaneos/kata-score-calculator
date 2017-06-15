@@ -2,16 +2,16 @@
 
 namespace Kata\Test;
 
-use Kata\StringToInt;
+use Kata\YamsScoreCalculator;
 
 /**
  * Class StringToIntTest
  *
  * @package unit
  **/
-class StringToIntTest extends \PHPUnit_Framework_TestCase
+class YamsScoreCalculatorTest extends \PHPUnit_Framework_TestCase
 {
-    /** @var  StringToInt */
+    /** @var  YamsScoreCalculator */
     private $SUT;
 
     /**
@@ -19,7 +19,7 @@ class StringToIntTest extends \PHPUnit_Framework_TestCase
      */
     public function setUp()
     {
-        $this->SUT = new StringToInt();
+        $this->SUT = new YamsScoreCalculator();
     }
 
     /**
@@ -34,7 +34,7 @@ class StringToIntTest extends \PHPUnit_Framework_TestCase
      */
     public function it_should_return_0_on_empty_string()
     {
-        $value = $this->SUT->cast('');
+        $value = $this->SUT->score('');
 
         $this->assertSame(0, $value);
     }
@@ -45,7 +45,7 @@ class StringToIntTest extends \PHPUnit_Framework_TestCase
     public function it_should_return_0_when_no_number_occurs_at_least_2_times()
     {
         $dices = "1;2;3;4;5";
-        $value = $this->SUT->cast($dices);
+        $value = $this->SUT->score($dices);
 
         $this->assertSame(0, $value);
     }
@@ -56,7 +56,7 @@ class StringToIntTest extends \PHPUnit_Framework_TestCase
     public function it_should_return_the_sum_of_the_highest_occured_number_when_occured_at_least_two_times()
     {
         $dices = '3;3;3;4;4';
-        $value = $this->SUT->cast($dices);
+        $value = $this->SUT->score($dices);
 
         $this->assertEquals(9, $value);
     }
