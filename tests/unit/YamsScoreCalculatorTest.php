@@ -44,7 +44,7 @@ class YamsScoreCalculatorTest extends \PHPUnit_Framework_TestCase
      */
     public function it_should_return_0_when_no_number_occurs_at_least_2_times()
     {
-        $dices = "1;2;3;4;5";
+        $dices = "1;3;4;5;6";
         $value = $this->SUT->score($dices);
 
         $this->assertSame(0, $value);
@@ -60,12 +60,24 @@ class YamsScoreCalculatorTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals(9, $value);
     }
-    
+
     /**
      * @test
      */
-    public function it_should_()
+    public function it_should_return_20_when_small_straight()
     {
-        
+        $dices = '5;2;3;4;1';
+        $value = $this->SUT->score($dices);
+        $this->assertEquals(20, $value);
+    }
+
+    /**
+     * @test
+     */
+    public function it_should_return_25_when_big_straight()
+    {
+        $dices = '5;2;3;4;6';
+        $value = $this->SUT->score($dices);
+        $this->assertEquals(25, $value);
     }
 }

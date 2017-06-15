@@ -9,6 +9,17 @@ namespace Kata;
  **/
 class YamsScoreCalculator implements ScoreCalculator
 {
+    /** @var Combination[] */
+    private $combinations;
+
+    public function __construct()
+    {
+        $this->combinations = [
+            new SmallStraightCombination(),
+            new BigStraightCombination(),
+            new MaxCombination(),
+        ];
+    }
 
     /**
      * @param string $value
@@ -23,21 +34,12 @@ class YamsScoreCalculator implements ScoreCalculator
             return 0;
         }
 
-        if (count(array_unique($parsedArray)) === 5) {
-           return 0;
+        foreach($this->combinations as $combination) {
+            if ($combination->isSatisfied($parsedArray)) {
+                return $combination->score($parsedArray);
+            }
         }
 
-        $parsedArray = array_filter(
-            array_count_values($parsedArray),
-            function ($value) {
-                return $value > 1;
-            }
-        );
-
-        foreach ($parsedArray as $key => $value) {
-            $parsedArray[$key] = $key * $value;
-        };
-
-        return max($parsedArray);
+        return 0;
     }
 }
