@@ -1,0 +1,14 @@
+{
+    "name": "root/app",
+    "require": {
+        "phpunit/phpunit": "^5.6",
+        "mockery/mockery": "^0.9.5",
+        "symfony/var-dumper": "^3.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "Kata\\": "src/",
+            "tests\\Kata\\": "tests/"
+        }
+    }
+}
