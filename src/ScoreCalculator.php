@@ -27,11 +27,20 @@ class ScoreCalculator
 
         $duplicates = array_count_values($scores);
 
-        return max(array_map(function ($value) use ($duplicates) {
+        return max($this->calculateScoresByValues($duplicates));
+    }
+
+    /**
+     * @param $duplicates
+     * @return array
+     */
+    public function calculateScoresByValues($duplicates)
+    {
+        return array_map(function ($value) use ($duplicates) {
             if ($duplicates[$value] === 1) {
                 return 0;
             }
             return $duplicates[$value] * $value;
-        }, array_keys($duplicates)));
+        }, array_keys($duplicates));
     }
 }
