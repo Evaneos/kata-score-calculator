@@ -9,11 +9,14 @@
 namespace Kata\ScoreCalculator;
 
 
-interface ScoreCalculator
+class ScoreCalculator
 {
     /**
      * @param string $score
      * @return int
      */
-    public function calculateScore($score);
+    public function calculateScore($score = null)
+    {
+        return 0;
+    }
 }
