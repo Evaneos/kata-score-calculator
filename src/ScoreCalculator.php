@@ -21,12 +21,10 @@ class ScoreCalculator implements ScoreCalculatorInterface
      */
     public function calculate($score)
     {
-        if (preg_match('/^([0-9]{1,};){0,}[0-9]{0,1}$/', $score) == 0) {
-            throw new \Exception("Bad format");
+        if ($score == '') {
+            return 0;
         }
-
-        $score = explode(';', $score);
-
-        return max($this->combinationCalculator->additionCombinations($score));
+        $combinations = CombinationFormatter::formatToArray($score);
+        return max($this->combinationCalculator->additionCombinations($combinations));
     }
 }

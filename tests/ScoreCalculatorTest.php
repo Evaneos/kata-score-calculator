@@ -22,9 +22,22 @@ class ScoreCalculatorTest extends \PHPUnit_Framework_TestCase
      * @expectedException \Exception
      */
     public function should_receive_good_format() {
-        $calculator = new ScoreCalculator(new CombinationCalculator());
+        CombinationFormatter::formatToArray('1;2;3;4;5;;;');
+    }
 
-        $calculator->calculate('1;2;3;4;5;;;');
+    /** @test */
+    public function should_receive_good_format_and_transform_to_array() {
+        $array_valid = array(3,3,3,3,3);
+
+        $this->assertEquals($array_valid, CombinationFormatter::formatToArray('3;3;3;3;3'));
+    }
+
+    /**
+     * @test
+     * @expectedException \Exception
+     */
+    public function should_receive_good_format_like_dice() {
+        CombinationFormatter::formatToArray('9;2;1;4;5');
     }
 
     /**
