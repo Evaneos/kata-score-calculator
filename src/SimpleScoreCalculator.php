@@ -21,39 +21,8 @@ class SimpleScoreCalculator implements ScoreCalculator
     {
         $rollOfDices = new RollOfDices($rawDicesResult);
 
-        $matchingCombinations = $this->getMatchingCombinations($rollOfDices);
-        $scores = $this->getCombinationScores($rollOfDices, $matchingCombinations);
-
-        return max($scores);
+        return $rollOfDices->getScore($this->possibleCombinations);
     }
 
-    /**
-     * @param $rollOfDices
-     * @return array
-     */
-    private function getMatchingCombinations($rollOfDices): array
-    {
-        return array_filter(
-            $this->possibleCombinations,
-            function (Combination $combination) use ($rollOfDices) {
-                return $combination->match($rollOfDices);
-            }
-        );
-    }
-
-    /**
-     * @param $rollOfDices
-     * @param $matchingCombinations
-     * @return array
-     */
-    private function getCombinationScores($rollOfDices, $matchingCombinations): array
-    {
-        return array_map(
-            function (Combination $combination) use ($rollOfDices) {
-                return $combination->getScore($rollOfDices);
-            },
-            $matchingCombinations
-        );
-    }
 
 }

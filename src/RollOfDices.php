@@ -2,6 +2,8 @@
 
 namespace Kata\ScoreCalculator;
 
+use Kata\ScoreCalculator\Combination\Combination;
+
 class RollOfDices
 {
     /**
@@ -44,4 +46,39 @@ class RollOfDices
         );
     }
 
+    public function getScore(array $possibleCombinations)
+    {
+        $matchingCombinations = $this->getMatchingCombinations($possibleCombinations);
+        $scores = $this->getCombinationScores($matchingCombinations);
+
+        return max($scores);
+    }
+
+    /**
+     * @param Combination[] $possibleCombinations
+     * @return Combination[]
+     */
+    private function getMatchingCombinations(array $possibleCombinations): array
+    {
+        return array_filter(
+            $possibleCombinations,
+            function (Combination $combination) {
+                return $combination->match($this);
+            }
+        );
+    }
+
+    /**
+     * @param $matchingCombinations
+     * @return array
+     */
+    private function getCombinationScores($matchingCombinations): array
+    {
+        return array_map(
+            function (Combination $combination) {
+                return $combination->getScore($this);
+            },
+            $matchingCombinations
+        );
+    }
 }
