@@ -15,5 +15,5 @@ interface ScoreCalculator
      * @param string $score
      * @return int
      */
-    public function calculateScore($score);
+    public function calculateScore(string $score): int;
 }
