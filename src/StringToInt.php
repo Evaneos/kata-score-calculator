@@ -30,13 +30,11 @@ class StringToInt implements StringToIntInterface
         $arrayFiltered = array_filter($arrayCountValues, function ($value) {
             return $value > 1;
         });
-        $toKeep = max(array_keys($arrayFiltered));
-        $values = array_filter($values, function ($current) use ($toKeep) {
-            return $current == $toKeep;
-        });
 
-        return array_reduce($values, function ($before, $current) {
-            return $before + $current;
-        }, 0);
+        foreach($arrayFiltered as $key => $value) {
+            $arrayFiltered[$key] = $key * $value;
+        };
+
+        return max($arrayFiltered);
     }
 }

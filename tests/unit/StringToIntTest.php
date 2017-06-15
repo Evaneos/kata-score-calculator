@@ -53,12 +53,12 @@ class StringToIntTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function it_should_return_the_sum_of_the_highest_number_when_occured_at_least_two_times()
+    public function it_should_return_the_sum_of_the_highest_occured_number_when_occured_at_least_two_times()
     {
         $dices = '3;3;3;4;4';
         $value = $this->SUT->cast($dices);
 
-        $this->assertEquals(8, $value);
+        $this->assertEquals(9, $value);
     }
     
     /**
