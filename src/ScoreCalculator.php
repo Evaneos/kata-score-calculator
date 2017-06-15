@@ -14,6 +14,7 @@ class ScoreCalculator
 {
     const NUMBER_OF_DICES = 5;
     const SMALL_STRAIGHT_SCORE = 20;
+    const LARGE_STRAIGHT_SCORE = 25;
 
     /**
      * @param string $score
@@ -29,6 +30,8 @@ class ScoreCalculator
 
         if ($this->isSmallStraight($scores)) {
             return self::SMALL_STRAIGHT_SCORE;
+        } elseif ($this->isLargeStraight($scores)) {
+            return self::LARGE_STRAIGHT_SCORE;
         }
 
         $duplicates = array_count_values(self::getSortedValuesAsInts($scores));
@@ -72,5 +75,10 @@ class ScoreCalculator
         sort($intValues);
 
         return $intValues;
+    }
+
+    private function isLargeStraight($scores)
+    {
+        return self::getSortedValuesAsInts($scores) === [2, 3, 4, 5, 6];
     }
 }

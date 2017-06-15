@@ -71,10 +71,18 @@ class Test extends TestCase
     }
 
     /**
-     * @test
-     */
+ * @test
+ */
     public function it_should_calculate_score_for_a_small_straight()
     {
         $this->assertSame(20, $this->SUT->calculateScore('3;4;1;2;5'));
+    }
+
+    /**
+     * @test
+     */
+    public function it_should_calculate_score_for_a_large_straight()
+    {
+        $this->assertSame(25, $this->SUT->calculateScore('3;4;6;2;5'));
     }
 }
