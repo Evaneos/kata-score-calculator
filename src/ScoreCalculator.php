@@ -14,7 +14,6 @@ use Assert\Assertion;
 class ScoreCalculator
 {
     const NUMBER_OF_DICES = 5;
-    const VALID_DICE_FACES = ['1', '2', '3', '4', '5', '6'];
 
     /**
      * @param string $score
@@ -22,12 +21,15 @@ class ScoreCalculator
      */
     public function calculateScore($score)
     {
-        $scores = null === $score ? [] : explode(';', $score);
+        $scores = array_map(function ($value) {
+            return DiceValue::fromValue($value);
+        }, explode(';', $score));
 
         Assertion::count($scores, self::NUMBER_OF_DICES, 'Bad number of dices');
-        Assertion::allInArray($scores, self::VALID_DICE_FACES);
 
-        $duplicates = array_count_values($scores);
+        $duplicates = array_count_values(array_map(function (DiceValue $value) {
+            return $value->getValue();
+        }, $scores));
 
         return max($this->calculateScoresByValues($duplicates));
     }
