@@ -34,6 +34,13 @@ class ScoreCalculatorTest extends \PHPUnit_Framework_TestCase
     {
         $calculator = new ScoreCalculator();
 
-        $this->assertEquals( 3, $calculator->calculate('3;3;3'));
+        $this->assertEquals( 15, $calculator->calculate('3;3;3;3;3'));
+    }
+
+    /** @test */
+    public function  should_return_addition_of_max_occurrence() {
+        $calculator = new ScoreCalculator();
+
+        $this->assertEquals(8, $calculator->calculate('4;4;2;1;3'));
     }
 }

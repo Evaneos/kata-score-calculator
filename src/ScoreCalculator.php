@@ -15,6 +15,6 @@ class ScoreCalculator implements ScoreCalculatorInterface
             throw new \Exception("Bad format");
         }
 
-        return 0;
+        return (int)array_sum(explode(';', $score));
     }
 }
