@@ -14,12 +14,26 @@ class ScoreCalculator
     const LARGE_STRAIGHT_SCORE = 25;
 
     /**
+     * @var RollResultParser
+     */
+    private $parser;
+
+    /**
+     * ScoreCalculator constructor.
+     */
+    public function __construct(RollResultParser $parser)
+    {
+        $this->parser = $parser;
+    }
+
+
+    /**
      * @param string $rollResult
      * @return int
      */
     public function calculateScore(string $rollResult): int
     {
-        $roll = self::parseRollResult($rollResult);
+        $roll = $this->parser->parseRollResult($rollResult);
 
         if (self::isSmallStraight($roll)) {
             return self::SMALL_STRAIGHT_SCORE;
@@ -59,16 +73,5 @@ class ScoreCalculator
     private static function isLargeStraight(Roll $roll): bool
     {
         return $roll->isConsecutive() && $roll->getMaxValue() === 6;
-    }
-
-    /**
-     * @param string $rollResult
-     * @return Roll
-     */
-    private static function parseRollResult(string $rollResult): Roll
-    {
-        return new Roll(array_map(function ($value) {
-            return DiceValue::fromValue((int) $value);
-        }, explode(';', $rollResult)));
     }
 }

@@ -16,7 +16,7 @@ class Test extends TestCase
 
     public function setUp()
     {
-        $this->SUT = new ScoreCalculator();
+        $this->SUT = new ScoreCalculator(new RollResultParser());
     }
 
     /**
