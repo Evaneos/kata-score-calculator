@@ -14,20 +14,19 @@ class LargeStraightCombination implements Combination
     public function match(RollOfDices $rollOfDices): bool
     {
         return empty(
-            array_diff(
-                [2,3,4,5,6],
-                array_unique($rollOfDices->getRawDiceValues()
-                )
+        array_diff(
+            [2, 3, 4, 5, 6],
+            array_unique($rollOfDices->getRawDiceValues()
             )
+        )
         );
     }
 
     public function getScore(RollOfDices $rollOfDices): int
     {
-        // TODO: Implement getScore() method.
-    }
-
-    private function removeDuplicates() {
-
+        if ($this->match($rollOfDices)) {
+            return 25;
+        }
+        return 0;
     }
 }

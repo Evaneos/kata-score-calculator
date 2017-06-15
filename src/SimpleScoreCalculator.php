@@ -3,8 +3,6 @@
 namespace Kata\ScoreCalculator;
 
 
-use Kata\ScoreCalculator\Combination\Combination;
-
 class SimpleScoreCalculator implements ScoreCalculator
 {
     /**

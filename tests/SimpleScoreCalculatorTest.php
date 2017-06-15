@@ -3,6 +3,7 @@
 namespace tests\Kata\ScoreCalculator;
 
 use Kata\ScoreCalculator\Combination\DuplicateCombination;
+use Kata\ScoreCalculator\Combination\LargeStraightCombination;
 use Kata\ScoreCalculator\Combination\NoCombination;
 use Kata\ScoreCalculator\SimpleScoreCalculator;
 
@@ -19,6 +20,7 @@ class SimpleScoreCalculatorTest extends \PHPUnit_Framework_TestCase
             [
                 new NoCombination(),
                 new DuplicateCombination(),
+                new LargeStraightCombination(),
             ]
         );
     }
@@ -64,11 +66,13 @@ class SimpleScoreCalculatorTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($expectedScore, $score);
     }
 
-    public function getHighestScoreExamples(){
+    public function getHighestScoreExamples()
+    {
         return [
             ['1;1;1;6;6', 12],
             ['6;6;1;1;1', 12],
             ['1;1;1;2;6', 3],
+            ['2;3;4;5;6', 25],
         ];
     }
 }
