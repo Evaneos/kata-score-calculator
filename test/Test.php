@@ -60,4 +60,13 @@ class Test extends TestCase
     {
         $this->assertSame(8, $this->SUT->calculateScore('1;4;3;3;4'));
     }
+
+    /**
+     * @test
+     * @expectedException \InvalidArgumentException
+     */
+    public function it_should_not_accept_invalide_6_faces_dice_methods()
+    {
+        $this->SUT->calculateScore('0;12;-3;5;7');
+    }
 }
