@@ -29,5 +29,22 @@ class ScoreCalculator
         if (count($duplicates) === self::NUMBER_OF_DICES) {
             return 0;
         }
+
+        $filteredDuplicates = array_filter(
+            $duplicates,
+            function($occurences) {
+                return $occurences > 1;
+            }
+        );
+
+        return array_reduce(
+            array_keys($filteredDuplicates),
+            function($higherValue, $value) use ($filteredDuplicates) {
+                $currentScore = $value * $filteredDuplicates[$value];
+
+                return $currentScore;
+            },
+            0
+        );
     }
 }

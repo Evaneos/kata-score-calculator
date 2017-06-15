@@ -44,4 +44,12 @@ class Test extends TestCase
     {
         $this->assertSame(0, $this->SUT->calculateScore('1;2;3;4;5'));
     }
+
+    /**
+     * @test
+     */
+    public function it_should_return_sum_of_duplicate()
+    {
+        $this->assertSame(6, $this->SUT->calculateScore('1;2;3;4;3'));
+    }
 }
