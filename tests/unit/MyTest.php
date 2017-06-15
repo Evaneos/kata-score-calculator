@@ -1,6 +1,8 @@
 <?php
 
-namespace Kata\Test;
+namespace ScoreCalculator\Test;
+
+use ScoreCalculator\Calculator;
 
 class MyTest extends \PHPUnit_Framework_TestCase
 {
@@ -19,8 +21,9 @@ class MyTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function test()
+    public function it_should_return_0_if_not_given_anything()
     {
-        $this->assertTrue(true);
+        $calculator = new Calculator();
+        $this->assertEquals(0, $calculator->getNumber());
     }
 }
