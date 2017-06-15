@@ -65,6 +65,14 @@ class ScoreCalculatorTest extends \PHPUnit_Framework_TestCase
     }
 
     /** @test */
+    public function la_suite_a_un_score_bonus() {
+        $calculator = new CombinationCalculator();
+
+        $this->assertEquals([20], $calculator->additionCombinations([1, 2, 3, 4, 5]));
+        $this->assertEquals([25], $calculator->additionCombinations([2, 3, 4, 5, 6]));
+    }
+
+    /** @test */
     public function la_combinaison_la_plus_elevé_doit_etre_gardé()
     {
         $calculator = new ScoreCalculator(new CombinationCalculator());
