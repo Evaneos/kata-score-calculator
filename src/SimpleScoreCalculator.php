@@ -3,6 +3,8 @@
 namespace Kata\ScoreCalculator;
 
 
+use Kata\ScoreCalculator\Combination\Combination;
+
 class SimpleScoreCalculator implements ScoreCalculator
 {
     public function calculateScore(string $rawDicesResult): int
