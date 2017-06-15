@@ -6,7 +6,7 @@ use Kata\ScoreCalculator\RollOfDices;
 
 interface Combination
 {
-    public static function match(RollOfDices $rollOfDices): bool;
+    public function match(RollOfDices $rollOfDices): bool;
 
-    public static function getScore(RollOfDices $rollOfDices): int;
+    public function getScore(RollOfDices $rollOfDices): int;
 }

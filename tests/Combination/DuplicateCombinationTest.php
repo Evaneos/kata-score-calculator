@@ -49,4 +49,26 @@ class DuplicateCombinationTest extends \PHPUnit_Framework_TestCase
 
         $this->assertSame(4, $score);
     }
+
+    /**
+     * @test
+     * @dataProvider getHighestScoreExamples
+     * @param $rawDicesResult
+     * @param $expectedScore
+     */
+    public function it_should_return_the_highest_score($rawDicesResult, $expectedScore)
+    {
+        $rollOfDices = new RollOfDices($rawDicesResult);
+        $score = $this->SUT->getScore($rollOfDices);
+
+        $this->assertSame($expectedScore, $score);
+    }
+
+    public function getHighestScoreExamples(){
+        return [
+            ['1;1;1;6;6', 12],
+            ['6;6;1;1;1', 12],
+            ['1;1;1;2;6', 3],
+        ];
+    }
 }
