@@ -9,29 +9,46 @@ class SimpleScoreCalculator implements ScoreCalculator
     {
         $dicesResult = explode(';', $rawDicesResult);
 
+        $facesCount = $this->getFacesCount($dicesResult);
+        $duplicates = $this->getDuplicateFaces($facesCount);
+
+        return $this->getMaxDuplicateScore($duplicates);
+    }
+
+    /**
+     * @param $dicesResult
+     * @return array
+     */
+    private function getFacesCount(array $dicesResult): array
+    {
+        return array_count_values($dicesResult);
+    }
+
+    /**
+     * @param $facesCount
+     * @return array
+     */
+    private function getDuplicateFaces($facesCount): array
+    {
         $duplicates = array_filter(
-            array_reduce(
-                $dicesResult,
-                function ($acc, $result) {
-                    if (!array_key_exists($result, $acc)) {
-                        $acc[$result] = 0;
-                    }
-                    $acc[$result]++;
-                    return $acc;
-                },
-                []
-            ),
+            $facesCount,
             function ($count) {
                 return $count > 1;
             }
         );
+        return $duplicates;
+    }
 
-        $result = [0];
-        foreach ($duplicates as $diceValue => $diceCount) {
-            $result[] = $diceValue * $diceCount;
-        }
-
-        return max($result);
+    /**
+     * @param array $duplicates
+     * @return int
+     */
+    private function getMaxDuplicateScore($duplicates): int
+    {
+        $result = array_map(function($diceCount, $diceValue){
+            return $diceCount * $diceValue;
+        }, $duplicates, array_keys($duplicates));
+        return count($result) ? max($result) : 0;
     }
 
 }
