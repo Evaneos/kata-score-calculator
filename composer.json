@@ -1,0 +1,23 @@
+{
+    "name": "quentin/kata-score-calculator",
+    "require-dev": {
+        "phpunit/phpunit": "^6.2"
+    },
+    "authors": [
+        {
+            "name": "Quentin",
+            "email": "quentin.pautrat@gmail.com"
+        }
+    ],
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "Kata\\ScoreCalculator\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Kata\\ScoreCalculator\\": "test/"
+        }
+    }
+}
