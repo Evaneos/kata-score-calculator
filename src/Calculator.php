@@ -2,15 +2,15 @@
 
 namespace ScoreCalculator;
 
-class Calculator implements StringToInt
+class Calculator implements StringToIntContract
 {
     /**
-     * @param string $string
+     * @param string $input
      *
      * @return int
      */
-    public function getNumber(string $string = null) : int
+    public function getNumber(string $input = null) : int
     {
-        return $string ?? 0;
+        return $input ?? 0;
     }
 }
