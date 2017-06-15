@@ -12,8 +12,8 @@ namespace Kata\ScoreCalculator;
 interface ScoreCalculator
 {
     /**
-     * @param string $score
+     * @param string $rawDicesResult
      * @return int
      */
-    public function calculateScore(string $score): int;
+    public function calculateScore(string $rawDicesResult): int;
 }
