@@ -25,4 +25,24 @@ class SimpleScoreCalculatorTest extends \PHPUnit_Framework_TestCase
 
         $this->assertSame(0, $score);
     }
+
+    /**
+     * @test
+     */
+    public function it_should_return_zero_if_there_is_no_double()
+    {
+        $score = $this->SUT->calculateScore('1;2;3;4;5');
+
+        $this->assertSame(0, $score);
+    }
+
+    /**
+     * @test
+     */
+    public function it_should_return_sum_of_a_double_number()
+    {
+        $score = $this->SUT->calculateScore('1;2;3;2;5');
+
+        $this->assertSame(4, $score);
+    }
 }
