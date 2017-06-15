@@ -3,7 +3,7 @@
 namespace ScoreCalculator\Test;
 
 use ScoreCalculator\Calculator;
-use ScoreCalculator\StringToIntContract;
+use ScoreCalculator\Contracts\StringToIntContract;
 
 class CalculatorTest extends \PHPUnit_Framework_TestCase
 {
@@ -12,6 +12,7 @@ class CalculatorTest extends \PHPUnit_Framework_TestCase
      */
     public function setUp()
     {
+        // 
     }
 
     public function tearDown()

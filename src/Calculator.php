@@ -2,10 +2,10 @@
 
 namespace ScoreCalculator;
 
-class Calculator implements StringToIntContract
+class Calculator implements Contracts\StringToIntContract
 {
     /**
-     * @param string $input
+     * @param string|null $input
      *
      * @return int
      */

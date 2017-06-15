@@ -1,11 +1,11 @@
 <?php
 
-namespace ScoreCalculator;
+namespace ScoreCalculator\Contracts;
 
 interface StringToIntContract
 {
     /**
-     * @param string $input
+     * @param string|null $input
      *
      * @return int
      */
