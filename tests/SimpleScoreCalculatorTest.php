@@ -45,4 +45,23 @@ class SimpleScoreCalculatorTest extends \PHPUnit_Framework_TestCase
 
         $this->assertSame(4, $score);
     }
+
+    /**
+     * @test
+     * @dataProvider getHighestScoreExamples
+     */
+    public function it_should_return_the_highest_score($rawDicesResult, $expectedScore)
+    {
+        $score = $this->SUT->calculateScore($rawDicesResult);
+
+        $this->assertSame($expectedScore, $score);
+    }
+
+    public function getHighestScoreExamples(){
+        return [
+            ['1;1;1;6;6', 12],
+            ['6;6;1;1;1', 12],
+            ['1;1;1;2;6', 12],
+        ];
+    }
 }
