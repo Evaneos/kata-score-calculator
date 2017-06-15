@@ -55,7 +55,7 @@ class YamsScoreCalculatorTest extends \PHPUnit_Framework_TestCase
      */
     public function it_should_return_the_sum_of_the_highest_occured_number_when_occured_at_least_two_times()
     {
-        $dices = '3;3;3;4;4';
+        $dices = '3;3;3;1;2';
         $value = $this->SUT->score($dices);
 
         $this->assertEquals(9, $value);
@@ -79,5 +79,15 @@ class YamsScoreCalculatorTest extends \PHPUnit_Framework_TestCase
         $dices = '5;2;3;4;6';
         $value = $this->SUT->score($dices);
         $this->assertEquals(25, $value);
+    }
+
+    /**
+     * @test
+     */
+    public function it_should_return_the_sum_when_pair()
+    {
+        $dices = '3;2;3;3;2';
+        $value = $this->SUT->score($dices);
+        $this->assertEquals(4, $value);
     }
 }

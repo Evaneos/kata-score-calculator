@@ -17,6 +17,7 @@ class YamsScoreCalculator implements ScoreCalculator
         $this->combinations = [
             new SmallStraightCombination(),
             new BigStraightCombination(),
+            new PairCombination(),
             new MaxCombination(),
         ];
     }
