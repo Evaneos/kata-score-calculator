@@ -5,6 +5,16 @@ namespace Calculator;
 class ScoreCalculator implements ScoreCalculatorInterface
 {
     /**
+     * @var CombinationCalculator
+     */
+    private $combinationCalculator;
+
+    public function __construct(CombinationCalculator $combinationCalculator)
+    {
+        $this->combinationCalculator = $combinationCalculator;
+    }
+
+    /**
      * @param string $score
      * @return int
      * @throws \Exception
@@ -16,11 +26,7 @@ class ScoreCalculator implements ScoreCalculatorInterface
         }
 
         $score = explode(';', $score);
-        $finalValue = [];
-        foreach (array_count_values($score) as $val => $nbOccurrence) {
-            $finalValue[] = $val * $nbOccurrence;
-        }
 
-        return (int)max($finalValue);
+        return max($this->combinationCalculator->additionCombinations($score));
     }
 }
