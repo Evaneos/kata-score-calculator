@@ -38,9 +38,16 @@ class ScoreCalculatorTest extends \PHPUnit_Framework_TestCase
     }
 
     /** @test */
-    public function  should_return_addition_of_max_occurrence() {
+    public function  could_return_addition_of_max_occurrence() {
         $calculator = new ScoreCalculator();
 
         $this->assertEquals(8, $calculator->calculate('4;4;2;1;3'));
+    }
+
+    /** @test */
+    public function le_score_aditionné_le_plus_elevé_doit_etre_retourné() {
+        $calculator = new ScoreCalculator();
+
+        $this->assertEquals(8, $calculator->calculate('4;4;1;1;1'));
     }
 }

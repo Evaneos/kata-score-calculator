@@ -15,6 +15,12 @@ class ScoreCalculator implements ScoreCalculatorInterface
             throw new \Exception("Bad format");
         }
 
-        return (int)array_sum(explode(';', $score));
+        $score = explode(';', $score);
+        $finalValue = [];
+        foreach (array_count_values($score) as $val => $nbOccurrence) {
+            $finalValue[] = $val * $nbOccurrence;
+        }
+
+        return (int)max($finalValue);
     }
 }
