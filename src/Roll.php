@@ -36,24 +36,48 @@ class Roll
         $this->values = $values;
     }
 
-    public function getValuesAsInts()
+    /**
+     * @return DiceValueOccurence[]
+     */
+    public function getDiceValueOccurences(): array
+    {
+        $countOccurences = array_count_values($this->getValuesAsInts());
+
+        return array_reduce(
+            array_keys($countOccurences),
+            function (array $occurences, int $diceValue) use ($countOccurences) {
+                $occurences[] = new DiceValueOccurence(DiceValue::fromValue($diceValue), $countOccurences[$diceValue]);
+
+                return $occurences;
+            },
+            []
+        );
+    }
+
+    /**
+     * @return bool
+     */
+    public function isConsecutive(): bool
+    {
+        return $this->getValuesAsInts()  === [1, 2, 3, 4, 5] ||
+            $this->getValuesAsInts()  === [2, 3, 4, 5, 6];
+    }
+
+    /**
+     * @return int
+     */
+    public function getMaxValue(): int
+    {
+        return max($this->getValuesAsInts());
+    }
+
+    /**
+     * @return int[]
+     */
+    public function getValuesAsInts(): array
     {
         return array_map(function (DiceValue $value) {
             return $value->getValue();
         }, $this->values);
-    }
-
-    /**
-     * @param DiceValue[] $scores
-     * @return bool
-     */
-    public function isSmallStraight()
-    {
-        return $this->getValuesAsInts() === [1, 2, 3, 4, 5];
-    }
-
-    public function isLargeStraight()
-    {
-        return $this->getValuesAsInts() === [2, 3, 4, 5, 6];
     }
 }

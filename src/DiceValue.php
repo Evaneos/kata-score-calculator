@@ -13,7 +13,7 @@ use Assert\Assertion;
 
 class DiceValue
 {
-    const VALID_DICE_FACES = ['1', '2', '3', '4', '5', '6'];
+    const VALID_DICE_FACES = [1, 2, 3, 4, 5, 6];
 
     /**
      * @var int
@@ -24,22 +24,25 @@ class DiceValue
      * DiceValue constructor.
      * @param string $value
      */
-    public function __construct($value)
+    private function __construct(int $value)
     {
         Assertion::InArray($value, self::VALID_DICE_FACES);
 
-        $this->value = (int) $value;
+        $this->value = $value;
     }
 
     /**
-     * @param string $value
+     * @param int $value
      */
-    public static function fromValue($value)
+    public static function fromValue(int $value): DiceValue
     {
         return new self($value);
     }
 
-    public function getValue()
+    /**
+     * @return int
+     */
+    public function getValue(): int
     {
         return $this->value;
     }
