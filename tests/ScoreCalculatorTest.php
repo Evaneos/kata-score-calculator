@@ -60,7 +60,6 @@ class ScoreCalculatorTest extends \PHPUnit_Framework_TestCase
     /** @test */
     public function le_score_aditionné_le_plus_elevé_doit_etre_retourné() {
         $calculator = new CombinationCalculator();
-
         $this->assertEquals([8, 3], $calculator->additionCombinations([4, 4, 1, 1, 1]));
     }
 
@@ -78,5 +77,20 @@ class ScoreCalculatorTest extends \PHPUnit_Framework_TestCase
         $calculator = new ScoreCalculator(new CombinationCalculator());
 
         $this->assertEquals(8, $calculator->calculate('4;4;1;1;1'));
+    }
+    /** @test */
+    public function test_multiple_combination() {
+        $calculator = new ScoreCalculator(new CombinationCalculator());
+
+        $combinations = array(
+            6 => '1;3;3;5;6',
+            12 => '3;3;6;6;4',
+            18 => '6;3;6;4;6',
+//            6 => '1;4;6;3;2'
+        );
+
+        foreach($combinations as $value => $combination) {
+            $this->assertEquals($value, $calculator->calculate($combination));
+        }
     }
 }
