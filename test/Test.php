@@ -1,6 +1,12 @@
 <?php
 
 namespace Kata\ScoreCalculator;
+use Kata\ScoreCalculator\Combination\FullCombination;
+use Kata\ScoreCalculator\Combination\LargeStraightCombination;
+use Kata\ScoreCalculator\Combination\OtherCombination;
+use Kata\ScoreCalculator\Combination\SmallStraightCombination;
+use Kata\ScoreCalculator\Combination\SquareCombination;
+use Kata\ScoreCalculator\Combination\ThreeOfAKindCombination;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -16,7 +22,19 @@ class Test extends TestCase
 
     public function setUp()
     {
-        $this->SUT = new Yahtzee(new RollResultParser(), new ScoreCalculator());
+        $this->SUT = new Yahtzee(
+            new RollResultParser(),
+            new ScoreCalculator(
+                [
+                    new FullCombination(),
+                    new LargeStraightCombination(),
+                    new OtherCombination(),
+                    new SmallStraightCombination(),
+                    new SquareCombination(),
+                    new ThreeOfAKindCombination()
+                ]
+            )
+        );
     }
 
     /**

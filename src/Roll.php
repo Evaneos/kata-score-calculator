@@ -39,7 +39,7 @@ class Roll
     /**
      * @return DiceFaceOccurence[]
      */
-    public function getDiceValueOccurences(): array
+    public function getDiceFaceOccurences(): array
     {
         $countOccurences = array_count_values($this->getValuesAsInts());
 
@@ -62,7 +62,7 @@ class Roll
     public function isAnyDiceValuePresentExactlyNTimes(int $n): bool
     {
         return array_reduce(
-            $this->getDiceValueOccurences(),
+            $this->getDiceFaceOccurences(),
             function ($squareFound, DiceFaceOccurence $occurence) use ($n) {
                 return $squareFound || $occurence->getCount() === $n;
             },
