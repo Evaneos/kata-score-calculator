@@ -116,4 +116,24 @@ class ScoreCalculatorTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals(19, $rule->apply([4, 4, 4, 4, 2, 1]));
     }
+
+    /**
+     * @test
+     */
+    public function test_un_yathzee_comporte_cinq_dès_identiques()
+    {
+        $rule = new SquareRules();
+
+        $this->assertFalse($rule->apply([4, 4, 3, 2, 6, 1]));
+    }
+
+    /**
+     * @test
+     */
+    public function test_un_yahtzee_donne_la_somme_de_tous_les_dès()
+    {
+        $rule = new SquareRules();
+
+        $this->assertEquals(21, $rule->apply([4, 4, 4, 4, 4, 1]));
+    }
 }
