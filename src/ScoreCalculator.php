@@ -2,23 +2,20 @@
 
 namespace Calculator;
 
-use Calculator\Rules\Rule;
+use Calculator\Rules\MaxRules;
+use Calculator\Rules\SquareRules;
 use Calculator\Rules\SuiteRules;
 
 class ScoreCalculator implements ScoreCalculatorInterface
 {
-    /**
-     * @var CombinationCalculator
-     */
-    private $combinationCalculator;
-
     private $rules;
 
-    public function __construct(CombinationCalculator $combinationCalculator)
+    public function __construct()
     {
-        $this->combinationCalculator = $combinationCalculator;
         $this->rules = array(
-            new SuiteRules()
+            new SuiteRules(),
+            new SquareRules(),
+            new MaxRules(),
         );
     }
 

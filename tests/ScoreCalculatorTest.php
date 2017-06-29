@@ -7,6 +7,9 @@
  */
 namespace Calculator;
 
+use Calculator\Rules\SquareRules;
+use Calculator\Rules\SuiteRules;
+
 class ScoreCalculatorTest extends \PHPUnit_Framework_TestCase
 {
     /** @test */
@@ -65,10 +68,10 @@ class ScoreCalculatorTest extends \PHPUnit_Framework_TestCase
 
     /** @test */
     public function la_suite_a_un_score_bonus() {
-        $calculator = new CombinationCalculator();
+        $calculator = new SuiteRules();
 
-        $this->assertEquals([20], $calculator->additionCombinations([1, 2, 3, 4, 5]));
-        $this->assertEquals([25], $calculator->additionCombinations([2, 3, 4, 5, 6]));
+        $this->assertEquals(20, $calculator->apply([1, 2, 3, 4, 5]));
+        $this->assertEquals(25, $calculator->apply([2, 3, 4, 5, 6]));
     }
 
     /** @test */
@@ -92,5 +95,25 @@ class ScoreCalculatorTest extends \PHPUnit_Framework_TestCase
         foreach($combinations as $value => $combination) {
             $this->assertEquals($value, $calculator->calculate($combination));
         }
+    }
+
+    /**
+     * @test
+     */
+    public function test_un_carré_comporte_quatres_dès_identiques()
+    {
+        $rule = new SquareRules();
+
+        $this->assertFalse($rule->apply([4, 4, 3, 3, 2, 1]));
+    }
+
+    /**
+     * @test
+     */
+    public function test_un_carré_donne_la_somme_de_tous_les_dès()
+    {
+        $rule = new SquareRules();
+
+        $this->assertEquals(19, $rule->apply([4, 4, 4, 4, 2, 1]));
     }
 }

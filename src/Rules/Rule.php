@@ -7,5 +7,5 @@ interface Rule {
      * @param array $scores
      * @return boolean
      */
-    public function apply($scores);
+    public function apply(array $scores);
 }

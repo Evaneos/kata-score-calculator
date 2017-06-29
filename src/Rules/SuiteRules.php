@@ -5,7 +5,7 @@ namespace Calculator\Rules;
 class SuiteRules implements Rule {
     const BONUS_SUITE = 5;
 
-    public function apply($scores) {
+    public function apply(array $scores) {
         sort($scores);
         $previousValue = null;
 
