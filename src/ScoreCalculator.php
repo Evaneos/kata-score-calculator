@@ -12,6 +12,7 @@ class ScoreCalculator
 {
     const SMALL_STRAIGHT_SCORE = 20;
     const LARGE_STRAIGHT_SCORE = 25;
+    const SQUARE_SCORE = 50;
 
     /**
      * @var RollResultParser
@@ -26,7 +27,6 @@ class ScoreCalculator
         $this->parser = $parser;
     }
 
-
     /**
      * @param string $rollResult
      * @return int
@@ -37,11 +37,19 @@ class ScoreCalculator
 
         if (self::isSmallStraight($roll)) {
             return self::SMALL_STRAIGHT_SCORE;
-        } elseif (self::isLargeStraight($roll)) {
+        }
+
+        if (self::isLargeStraight($roll)) {
             return self::LARGE_STRAIGHT_SCORE;
         }
+
+        if (self::isSquare($roll)) {
+            return self::SQUARE_SCORE;
+        }
+
         return max(self::calculateScoresByValues($roll->getDiceValueOccurences()));
     }
+
 
     /**
      * @param DiceValueOccurences[]
@@ -73,5 +81,19 @@ class ScoreCalculator
     private static function isLargeStraight(Roll $roll): bool
     {
         return $roll->isConsecutive() && $roll->getMaxValue() === 6;
+    }
+
+    /**
+     * @param Roll $roll
+     */
+    private static function isSquare(Roll $roll)
+    {
+        return array_reduce(
+            $roll->getDiceValueOccurences(),
+            function ($squareFound, DiceValueOccurence $occurence) {
+                return $squareFound || $occurence->getCount() === 4;
+            },
+            false
+        );
     }
 }
