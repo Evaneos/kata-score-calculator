@@ -7,6 +7,7 @@
  */
 namespace Calculator;
 
+use Calculator\Rules\KindRules;
 use Calculator\Rules\SquareRules;
 use Calculator\Rules\SuiteRules;
 
@@ -89,6 +90,7 @@ class ScoreCalculatorTest extends \PHPUnit_Framework_TestCase
             6 => '1;3;3;5;6',
             12 => '3;3;6;6;4',
             18 => '6;3;6;4;6',
+            19 => '4;3;4;4;4',
 //            6 => '1;4;6;3;2'
         );
 
@@ -115,5 +117,12 @@ class ScoreCalculatorTest extends \PHPUnit_Framework_TestCase
         $rule = new SquareRules();
 
         $this->assertEquals(19, $rule->apply([4, 4, 4, 4, 2, 1]));
+    }
+
+    public function test_un_brelan_donne_la_somme_de_tous_les_des()
+    {
+        $rule = new KindRules();
+
+        $this->assertEquals( 12, $rule->apply([2, 2, 2, 3, 3]));
     }
 }

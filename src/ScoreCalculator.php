@@ -2,6 +2,7 @@
 
 namespace Calculator;
 
+use Calculator\Rules\KindRules;
 use Calculator\Rules\MaxRules;
 use Calculator\Rules\SquareRules;
 use Calculator\Rules\SuiteRules;
@@ -15,6 +16,7 @@ class ScoreCalculator implements ScoreCalculatorInterface
         $this->rules = array(
             new SuiteRules(),
             new SquareRules(),
+//            new KindRules(),
             new MaxRules(),
         );
     }
