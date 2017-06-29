@@ -11,7 +11,7 @@ namespace Kata\ScoreCalculator;
 
 use Assert\Assertion;
 
-class DiceValue
+class DiceFace
 {
     const VALID_DICE_FACES = [1, 2, 3, 4, 5, 6];
 
@@ -34,7 +34,7 @@ class DiceValue
     /**
      * @param int $value
      */
-    public static function fromValue(int $value): DiceValue
+    public static function fromValue(int $value): DiceFace
     {
         return new self($value);
     }

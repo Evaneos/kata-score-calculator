@@ -16,7 +16,7 @@ class Roll
     const NUMBER_OF_DICES = 5;
 
     /**
-     * @var DiceValue[]
+     * @var DiceFace[]
      */
     private $values;
 
@@ -26,10 +26,10 @@ class Roll
      */
     public function __construct(array $values)
     {
-        Assertion::allIsInstanceOf($values, DiceValue::class);
+        Assertion::allIsInstanceOf($values, DiceFace::class);
         Assertion::count($values, self::NUMBER_OF_DICES, 'Bad number of dices');
 
-        usort($values, function (DiceValue $value1, DiceValue $value2) {
+        usort($values, function (DiceFace $value1, DiceFace $value2) {
             return $value1->getValue() - $value2->getValue();
         });
 
@@ -37,7 +37,7 @@ class Roll
     }
 
     /**
-     * @return DiceValueOccurence[]
+     * @return DiceFaceOccurence[]
      */
     public function getDiceValueOccurences(): array
     {
@@ -46,7 +46,7 @@ class Roll
         return array_reduce(
             array_keys($countOccurences),
             function (array $occurences, int $diceValue) use ($countOccurences) {
-                $occurences[] = new DiceValueOccurence(DiceValue::fromValue($diceValue), $countOccurences[$diceValue]);
+                $occurences[] = new DiceFaceOccurence(DiceFace::fromValue($diceValue), $countOccurences[$diceValue]);
 
                 return $occurences;
             },
@@ -63,7 +63,7 @@ class Roll
     {
         return array_reduce(
             $this->getDiceValueOccurences(),
-            function ($squareFound, DiceValueOccurence $occurence) use ($n) {
+            function ($squareFound, DiceFaceOccurence $occurence) use ($n) {
                 return $squareFound || $occurence->getCount() === $n;
             },
             false
@@ -92,7 +92,7 @@ class Roll
      */
     public function getValuesAsInts(): array
     {
-        return array_map(function (DiceValue $value) {
+        return array_map(function (DiceFace $value) {
             return $value->getValue();
         }, $this->values);
     }

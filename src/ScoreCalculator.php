@@ -66,14 +66,14 @@ class ScoreCalculator
      */
     private static function calculateScoresByValues(array $duplicates): array
     {
-        return array_map(function (DiceValueOccurence $occurence) use ($duplicates) {
+        return array_map(function (DiceFaceOccurence $occurence) use ($duplicates) {
             if ($occurence->getCount() < 2) {
                 return 0;
             }
             return $occurence->getCount() * $occurence->getDiceValue();
         }, $duplicates);
     }
-    
+
     /**
      * @param Roll $roll
      * @return bool

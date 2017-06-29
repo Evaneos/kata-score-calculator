@@ -15,7 +15,7 @@ class RollResultParser
     public function parseRollResult(string $rollResult) : Roll
     {
         return new Roll(array_map(function ($value) {
-            return DiceValue::fromValue((int) $value);
+            return DiceFace::fromValue((int) $value);
         }, explode(';', $rollResult)));
     }
 }

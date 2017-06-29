@@ -9,9 +9,9 @@
 namespace Kata\ScoreCalculator;
 
 
-class DiceValueOccurence
+class DiceFaceOccurence
 {
-    /** @var DiceValue */
+    /** @var DiceFace */
     private $diceValue;
 
     /** @var int */
@@ -19,10 +19,10 @@ class DiceValueOccurence
 
     /**
      * DiceValueOccurence constructor.
-     * @param DiceValue $diceValue
+     * @param DiceFace $diceValue
      * @param int $count
      */
-    public function __construct(DiceValue $diceValue, int $count)
+    public function __construct(DiceFace $diceValue, int $count)
     {
         $this->diceValue = $diceValue;
         $this->count = $count;
