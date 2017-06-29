@@ -17,26 +17,11 @@ class ScoreCalculator
     const FULL_SCORE = 40;
 
     /**
-     * @var RollResultParser
-     */
-    private $parser;
-
-    /**
-     * ScoreCalculator constructor.
-     */
-    public function __construct(RollResultParser $parser)
-    {
-        $this->parser = $parser;
-    }
-
-    /**
-     * @param string $rollResult
+     * @param Roll $roll
      * @return int
      */
-    public function calculateScore(string $rollResult): int
+    public function calculateScore(Roll $roll): int
     {
-        $roll = $this->parser->parseRollResult($rollResult);
-
         if (self::isSmallStraight($roll)) {
             return self::SMALL_STRAIGHT_SCORE;
         }
@@ -94,6 +79,7 @@ class ScoreCalculator
 
     /**
      * @param Roll $roll
+     * @return bool
      */
     private static function isSquare(Roll $roll): bool
     {
@@ -102,6 +88,7 @@ class ScoreCalculator
 
     /**
      * @param Roll $roll
+     * @return bool
      */
     private static function isThreeOfAKind(Roll $roll): bool
     {
@@ -110,8 +97,9 @@ class ScoreCalculator
 
     /**
      * @param Roll $roll
+     * @return bool
      */
-    private static function isFull(Roll $roll)
+    private static function isFull(Roll $roll) : bool
     {
         return $roll->isAnyDiceValuePresentExactlyNTimes(3)
             && $roll->isAnyDiceValuePresentExactlyNTimes(2);

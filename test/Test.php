@@ -11,12 +11,12 @@ use PHPUnit\Framework\TestCase;
  */
 class Test extends TestCase
 {
-    /** @var ScoreCalculator */
+    /** @var Yahtzee */
     private $SUT;
 
     public function setUp()
     {
-        $this->SUT = new ScoreCalculator(new RollResultParser());
+        $this->SUT = new Yahtzee(new RollResultParser(), new ScoreCalculator());
     }
 
     /**
@@ -25,7 +25,7 @@ class Test extends TestCase
      */
     public function it_should_not_have_more_than_a_fixed_number_of_dice()
     {
-        $this->SUT->calculateScore('1;2;3;4;5;6');
+        $this->SUT->roll('1;2;3;4;5;6');
     }
 
     /**
@@ -34,7 +34,7 @@ class Test extends TestCase
      */
     public function it_should_not_have_less_than_a_fixed_number_of_dice()
     {
-        $this->SUT->calculateScore('1;2;3;4');
+        $this->SUT->roll('1;2;3;4');
     }
 
     /**
@@ -42,7 +42,7 @@ class Test extends TestCase
      */
     public function it_should_return_zero_if_all_dice_values_are_different_but_not_consecutive()
     {
-        $this->assertSame(0, $this->SUT->calculateScore('1;2;3;4;6'));
+        $this->assertSame(0, $this->SUT->roll('1;2;3;4;6'));
     }
 
     /**
@@ -50,7 +50,7 @@ class Test extends TestCase
      */
     public function it_should_return_sum_of_duplicate()
     {
-        $this->assertSame(6, $this->SUT->calculateScore('1;2;3;4;3'));
+        $this->assertSame(6, $this->SUT->roll('1;2;3;4;3'));
     }
 
     /**
@@ -58,7 +58,7 @@ class Test extends TestCase
      */
     public function it_should_return_the_highest_sum_of_duplicates()
     {
-        $this->assertSame(8, $this->SUT->calculateScore('1;4;3;3;4'));
+        $this->assertSame(8, $this->SUT->roll('1;4;3;3;4'));
     }
 
     /**
@@ -67,7 +67,7 @@ class Test extends TestCase
      */
     public function it_should_not_accept_invalide_6_faces_dice_methods()
     {
-        $this->SUT->calculateScore('0;12;-3;5;7');
+        $this->SUT->roll('0;12;-3;5;7');
     }
 
     /**
@@ -75,7 +75,7 @@ class Test extends TestCase
  */
     public function it_should_calculate_score_for_a_small_straight()
     {
-        $this->assertSame(20, $this->SUT->calculateScore('3;4;1;2;5'));
+        $this->assertSame(20, $this->SUT->roll('3;4;1;2;5'));
     }
 
     /**
@@ -83,7 +83,7 @@ class Test extends TestCase
      */
     public function it_should_calculate_score_for_a_large_straight()
     {
-        $this->assertSame(25, $this->SUT->calculateScore('3;4;6;2;5'));
+        $this->assertSame(25, $this->SUT->roll('3;4;6;2;5'));
     }
 
     /**
@@ -91,7 +91,7 @@ class Test extends TestCase
      */
     public function it_should_calculate_score_for_a_square()
     {
-        $this->assertSame(50, $this->SUT->calculateScore('3;3;3;2;3'));
+        $this->assertSame(50, $this->SUT->roll('3;3;3;2;3'));
     }
 
     /**
@@ -99,7 +99,7 @@ class Test extends TestCase
      */
     public function it_should_calculate_score_for_a_three_of_a_kind()
     {
-        $this->assertSame(30, $this->SUT->calculateScore('3;3;1;2;3'));
+        $this->assertSame(30, $this->SUT->roll('3;3;1;2;3'));
     }
 
     /**
@@ -107,6 +107,6 @@ class Test extends TestCase
      */
     public function it_should_calculate_score_for_a_full()
     {
-        $this->assertSame(40, $this->SUT->calculateScore('3;3;2;2;3'));
+        $this->assertSame(40, $this->SUT->roll('3;3;2;2;3'));
     }
 }
