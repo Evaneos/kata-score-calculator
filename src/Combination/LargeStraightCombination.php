@@ -22,7 +22,7 @@ class LargeStraightCombination implements Combination
      */
     public function satisfies(Roll $roll): bool
     {
-        return $roll->isConsecutive() && $roll->getMaxValue() === 6;
+        return $roll->isConsecutive() && $roll->getMaxFace() === '6';
     }
 
     /**

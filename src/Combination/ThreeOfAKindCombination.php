@@ -22,7 +22,7 @@ class ThreeOfAKindCombination implements Combination
      */
     public function satisfies(Roll $roll): bool
     {
-        return $roll->isAnyDiceValuePresentExactlyNTimes(3);
+        return $roll->isAnyDiceFacePresentExactlyNTimes(3);
     }
 
     /**

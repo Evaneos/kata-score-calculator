@@ -61,7 +61,7 @@ class Roll
      *
      * @return bool
      */
-    public function isAnyDiceValuePresentExactlyNTimes(int $n): bool
+    public function isAnyDiceFacePresentExactlyNTimes(int $n): bool
     {
         return array_reduce(
             $this->getDiceFaceOccurences(),
@@ -77,25 +77,25 @@ class Roll
      */
     public function isConsecutive(): bool
     {
-        return $this->getValuesAsInts()  === [1, 2, 3, 4, 5] ||
-            $this->getValuesAsInts()  === [2, 3, 4, 5, 6];
+        return $this->getValuesAsStrings()  === ['1', '2', '3', '4', '5'] ||
+            $this->getValuesAsStrings()  === ['2', '3', '4', '5', '6'];
     }
 
     /**
      * @return int
      */
-    public function getMaxValue(): int
+    public function getMaxFace(): string
     {
-        return max($this->getValuesAsInts());
+        return max($this->getValuesAsStrings());
     }
 
     /**
      * @return int[]
      */
-    public function getValuesAsInts(): array
+    public function getValuesAsStrings(): array
     {
         return array_map(function (DiceFace $value) {
-            return $value->getValue();
+            return $value->face();
         }, $this->diceFaces);
     }
 }

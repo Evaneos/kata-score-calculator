@@ -22,7 +22,7 @@ class SmallStraightCombination implements Combination
      */
     public function satisfies(Roll $roll): bool
     {
-        return $roll->isConsecutive() && $roll->getMaxValue() === 5;
+        return $roll->isConsecutive() && $roll->getMaxFace() === '5';
     }
 
     /**

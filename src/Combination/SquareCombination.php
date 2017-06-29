@@ -22,7 +22,7 @@ class SquareCombination implements Combination
      */
     public function satisfies(Roll $roll): bool
     {
-        return $roll->isAnyDiceValuePresentExactlyNTimes(4);
+        return $roll->isAnyDiceFacePresentExactlyNTimes(4);
     }
 
     /**

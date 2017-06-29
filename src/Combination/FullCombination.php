@@ -22,8 +22,8 @@ class FullCombination implements Combination
      */
     public function satisfies(Roll $roll): bool
     {
-        return $roll->isAnyDiceValuePresentExactlyNTimes(3)
-            && $roll->isAnyDiceValuePresentExactlyNTimes(2);
+        return $roll->isAnyDiceFacePresentExactlyNTimes(3)
+            && $roll->isAnyDiceFacePresentExactlyNTimes(2);
     }
 
     /**
