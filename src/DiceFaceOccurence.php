@@ -43,4 +43,12 @@ class DiceFaceOccurence
     {
         return $this->count;
     }
+
+    /**
+     * @return DiceFaceOccurence
+     */
+    public function addOne() : DiceFaceOccurence
+    {
+        return new self($this->diceValue, $this->count + 1);
+    }
 }

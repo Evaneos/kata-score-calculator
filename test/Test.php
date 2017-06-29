@@ -7,6 +7,7 @@ use Kata\ScoreCalculator\Combination\OtherCombination;
 use Kata\ScoreCalculator\Combination\SmallStraightCombination;
 use Kata\ScoreCalculator\Combination\SquareCombination;
 use Kata\ScoreCalculator\Combination\ThreeOfAKindCombination;
+use Kata\ScoreCalculator\RollResultParser\TraditionnalRollResultParser;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -23,7 +24,7 @@ class Test extends TestCase
     public function setUp()
     {
         $this->SUT = new Yahtzee(
-            new RollResultParser(),
+            new TraditionnalRollResultParser(),
             new ScoreCalculator(
                 [
                     new FullCombination(),

@@ -10,6 +10,7 @@ namespace Kata\ScoreCalculator;
 
 
 use Assert\Assertion;
+use Kata\ScoreCalculator\DiceFace\TraditionnalDiceFace;
 
 class Roll
 {
@@ -18,7 +19,7 @@ class Roll
     /**
      * @var DiceFace[]
      */
-    private $values;
+    private $diceFaces;
 
     /**
      * DiceValues constructor.
@@ -33,7 +34,7 @@ class Roll
             return $value1->getValue() - $value2->getValue();
         });
 
-        $this->values = $values;
+        $this->diceFaces = $values;
     }
 
     /**
@@ -41,17 +42,18 @@ class Roll
      */
     public function getDiceFaceOccurences(): array
     {
-        $countOccurences = array_count_values($this->getValuesAsInts());
+        /** @var DiceFaceOccurence[] $occurences */
+        $occurences = [];
 
-        return array_reduce(
-            array_keys($countOccurences),
-            function (array $occurences, int $diceValue) use ($countOccurences) {
-                $occurences[] = new DiceFaceOccurence(DiceFace::fromValue($diceValue), $countOccurences[$diceValue]);
+        foreach ($this->diceFaces as $diceFace) {
+            if (!isset($occurences[$diceFace->face()])) {
+                $occurences[$diceFace->face()] = new DiceFaceOccurence($diceFace, 1);
+            } else {
+                $occurences[$diceFace->face()] = $occurences[$diceFace->face()]->addOne();
+            }
+        }
 
-                return $occurences;
-            },
-            []
-        );
+        return array_values($occurences);
     }
 
     /**
@@ -94,6 +96,6 @@ class Roll
     {
         return array_map(function (DiceFace $value) {
             return $value->getValue();
-        }, $this->values);
+        }, $this->diceFaces);
     }
 }

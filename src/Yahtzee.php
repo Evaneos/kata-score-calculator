@@ -9,6 +9,8 @@
 namespace Kata\ScoreCalculator;
 
 
+use Kata\ScoreCalculator\RollResultParser\TraditionnalRollResultParser;
+
 class Yahtzee
 {
     /**
@@ -24,7 +26,7 @@ class Yahtzee
     /**
      * Yahtzee constructor.
      * @param RollResultParser $parser
-     * @param ScoreCalculator $scoreCalculator
+     * @param ScoreCalculator  $scoreCalculator
      */
     public function __construct(RollResultParser $parser, ScoreCalculator $scoreCalculator)
     {
