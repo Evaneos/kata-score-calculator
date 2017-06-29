@@ -2,6 +2,9 @@
 
 namespace Calculator;
 
+use Calculator\Rules\Rule;
+use Calculator\Rules\SuiteRules;
+
 class ScoreCalculator implements ScoreCalculatorInterface
 {
     /**
@@ -9,9 +12,14 @@ class ScoreCalculator implements ScoreCalculatorInterface
      */
     private $combinationCalculator;
 
+    private $rules;
+
     public function __construct(CombinationCalculator $combinationCalculator)
     {
         $this->combinationCalculator = $combinationCalculator;
+        $this->rules = array(
+            new SuiteRules()
+        );
     }
 
     /**
@@ -25,6 +33,15 @@ class ScoreCalculator implements ScoreCalculatorInterface
             return 0;
         }
         $combinations = CombinationFormatter::formatToArray($score);
-        return max($this->combinationCalculator->additionCombinations($combinations));
+
+        foreach($this->rules as $rule) {
+            $result = $rule->apply($combinations);
+            if($result) {
+                return $result;
+            }
+        }
+
+        return 0;
+//        return max($this->combinationCalculator->additionCombinations($combinations));
     }
 }
