@@ -55,6 +55,22 @@ class Roll
     }
 
     /**
+     * @param int  $n
+     *
+     * @return bool
+     */
+    public function isAnyDiceValuePresentExactlyNTimes(int $n): bool
+    {
+        return array_reduce(
+            $this->getDiceValueOccurences(),
+            function ($squareFound, DiceValueOccurence $occurence) use ($n) {
+                return $squareFound || $occurence->getCount() === $n;
+            },
+            false
+        );
+    }
+
+    /**
      * @return bool
      */
     public function isConsecutive(): bool

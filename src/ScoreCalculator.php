@@ -14,6 +14,7 @@ class ScoreCalculator
     const LARGE_STRAIGHT_SCORE = 25;
     const SQUARE_SCORE = 50;
     const THREE_OF_A_KIND_SCORE = 30;
+    const FULL_SCORE = 40;
 
     /**
      * @var RollResultParser
@@ -48,13 +49,16 @@ class ScoreCalculator
             return self::SQUARE_SCORE;
         }
 
+        if (self::isFull($roll)) {
+            return self::FULL_SCORE;
+        }
+
         if (self::isThreeOfAKind($roll)) {
             return self::THREE_OF_A_KIND_SCORE;
         }
 
         return max(self::calculateScoresByValues($roll->getDiceValueOccurences()));
     }
-
 
     /**
      * @param DiceValueOccurences[]
@@ -69,7 +73,7 @@ class ScoreCalculator
             return $occurence->getCount() * $occurence->getDiceValue();
         }, $duplicates);
     }
-
+    
     /**
      * @param Roll $roll
      * @return bool
@@ -91,28 +95,25 @@ class ScoreCalculator
     /**
      * @param Roll $roll
      */
-    private static function isSquare(Roll $roll)
+    private static function isSquare(Roll $roll): bool
     {
-        return array_reduce(
-            $roll->getDiceValueOccurences(),
-            function ($squareFound, DiceValueOccurence $occurence) {
-                return $squareFound || $occurence->getCount() === 4;
-            },
-            false
-        );
+        return $roll->isAnyDiceValuePresentExactlyNTimes(4);
     }
 
     /**
      * @param Roll $roll
      */
-    private static function isThreeOfAKind(Roll $roll)
+    private static function isThreeOfAKind(Roll $roll): bool
     {
-        return array_reduce(
-            $roll->getDiceValueOccurences(),
-            function ($squareFound, DiceValueOccurence $occurence) {
-                return $squareFound || $occurence->getCount() === 3;
-            },
-            false
-        );
+        return $roll->isAnyDiceValuePresentExactlyNTimes(3);
+    }
+
+    /**
+     * @param Roll $roll
+     */
+    private static function isFull(Roll $roll)
+    {
+        return $roll->isAnyDiceValuePresentExactlyNTimes(3)
+            && $roll->isAnyDiceValuePresentExactlyNTimes(2);
     }
 }
