@@ -136,4 +136,11 @@ class ScoreCalculatorTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals(21, $rule->apply([4, 4, 4, 4, 4, 1]));
     }
+
+    public function test_un_brelan_donne_la_somme_de_tous_les_des()
+    {
+        $rule = new KindRules();
+
+        $this->assertEquals( 12, $rule->apply([2, 2, 2, 3, 3]));
+    }
 }
