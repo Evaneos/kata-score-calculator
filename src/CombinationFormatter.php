@@ -16,6 +16,8 @@ class CombinationFormatter {
      * @throws \Exception
      */
     public static function formatToArray($combination) {
+        $combination = 'singe;diamond;singe;singe;mort';
+
         $pattern = '/^([' . self::MIN_VALUE . '-' . self::MAX_VALUE . '];){'. (self::NB_LAUCH - 1) . ',' . (self::NB_LAUCH - 1) . '}[' . self::MIN_VALUE . '-' . self::MAX_VALUE . ']{1,1}$/';
         if (preg_match($pattern, $combination) == 0) {
             throw new \Exception("Bad format");

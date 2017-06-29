@@ -2,23 +2,23 @@
 
 namespace Calculator\Rules;
 
-use Calculator\CombinationCalculator;
-
 class MaxRules implements Rule
 {
-    protected $combinationCalculator;
-
-    public function __construct()
-    {
-        $this->combinationCalculator = new CombinationCalculator();
-    }
-
     /**
      * @param array $scores
      * @return boolean
      */
-    public function apply(array $scores)
+    public function apply(array $dices)
     {
-       return max($this->combinationCalculator->additionCombinations($scores));
+        $finalValue = [];
+        foreach($dices as $dice) {
+            if (isset($finalValue[$dice->getFace()])) {
+                $finalValue[$dice->getFace()] += $dice->getValue();
+            } else {
+                $finalValue[$dice->getFace()] = $dice->getValue();
+            }
+        }
+
+        return max($finalValue);
     }
 }
