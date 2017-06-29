@@ -93,4 +93,12 @@ class Test extends TestCase
     {
         $this->assertSame(50, $this->SUT->calculateScore('3;3;3;2;3'));
     }
+
+    /**
+     * @test
+     */
+    public function it_should_calculate_score_for_a_three_of_a_kind()
+    {
+        $this->assertSame(30, $this->SUT->calculateScore('3;3;1;2;3'));
+    }
 }

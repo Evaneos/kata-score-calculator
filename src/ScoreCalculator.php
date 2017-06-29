@@ -13,6 +13,7 @@ class ScoreCalculator
     const SMALL_STRAIGHT_SCORE = 20;
     const LARGE_STRAIGHT_SCORE = 25;
     const SQUARE_SCORE = 50;
+    const THREE_OF_A_KIND_SCORE = 30;
 
     /**
      * @var RollResultParser
@@ -45,6 +46,10 @@ class ScoreCalculator
 
         if (self::isSquare($roll)) {
             return self::SQUARE_SCORE;
+        }
+
+        if (self::isThreeOfAKind($roll)) {
+            return self::THREE_OF_A_KIND_SCORE;
         }
 
         return max(self::calculateScoresByValues($roll->getDiceValueOccurences()));
@@ -92,6 +97,20 @@ class ScoreCalculator
             $roll->getDiceValueOccurences(),
             function ($squareFound, DiceValueOccurence $occurence) {
                 return $squareFound || $occurence->getCount() === 4;
+            },
+            false
+        );
+    }
+
+    /**
+     * @param Roll $roll
+     */
+    private static function isThreeOfAKind(Roll $roll)
+    {
+        return array_reduce(
+            $roll->getDiceValueOccurences(),
+            function ($squareFound, DiceValueOccurence $occurence) {
+                return $squareFound || $occurence->getCount() === 3;
             },
             false
         );
